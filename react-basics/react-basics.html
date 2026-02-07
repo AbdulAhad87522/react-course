@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <div class="js-c"></div>
+    <script>console.log('shdhs')</script>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <!-- React and ReactDOM -->
+    <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+    <script type="text/babel">
+        const button = <button>hello</button>;
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(
+        <div>
+            <p>'Welcome to SuperSimpleDev React Course'</p>
+            <button>hello</button>
+            </div>
+      );
+
+    </script>
+  </body>
+</html> 

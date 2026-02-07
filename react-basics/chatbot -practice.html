@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+    <style>
+      .products-container{
+        display: flex;
+        gap: 20px;
+        border: 20pc;
+        
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <div class="js-c"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <!-- React and ReactDOM -->
+    <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+    <script type="text/babel">
+      function LoginForm(){
+        return(
+          <>
+            <div> <input type="text" placeholder = "Email" /></div>
+            <div><input type="password" placeholder = "Enter password" /></div>            
+            <div><button>Login</button>
+            <button>Signup</button></div>
+          </>
+        );
+      }
+
+      function App(){
+        return (
+          <>
+            <p>Hello, Welcome to my website</p>
+            <div class = "products-container">
+              <ProductDetails name = "Tennis ball"  price = " $6.00" discountedPrice = "$3.99" imaSrc = "ahad.png" />
+              <ProductDetails name = "Plain T-Shirt"  price = " $7.99" />
+              <ProductDetails name = "Cotton Socks"  price = " $10.90" />
+            </div>
+          </>
+        );
+      }
+
+      function ProductDetails({name, price, discountedPrice, imaSrc}){
+        return(
+          <div>
+            <img src={imaSrc} width = "50px" />
+              <div>
+                {name}
+                {discountedPrice ?
+                  (
+                    <div>
+                      <del><p>Price: {price}</p></del>
+                      <p>discounted Price: {discountedPrice}</p>
+                    </div>
+                  ) :(<p>Price: {price}</p>)}              
+                  <button>Add to Cart</button>
+              </div>
+          </div>
+        );
+      }
+
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App/> );
+      
+    </script>
+  </body>
+</html> 

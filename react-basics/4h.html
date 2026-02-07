@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .input-container{
+            background-color:green;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="js-container"></div>
+    <div class="js-c"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/Chatbot.js" ></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+     <script type="text/babel">
+      function Input(){
+        const [click, setClick] = React.useState(0)
+        function ClickOnce(){
+            setClick(click +1)
+        }
+
+        function counttozero(){
+            setClick(0)
+        }
+
+        function Autocount(){
+            setInterval(() => {
+                setClick(click +1)
+                console.log("code run")
+            }, 1000);
+        }
+        return(
+            <>
+                <button onClick= {ClickOnce}>Clicked {click} times</button>
+                <button onClick ={counttozero}>Reset</button>
+                {click}
+                <button onClick = {Autocount}>Auto Click</button>
+            </>
+        );
+      }
+        
+        function App(){
+            return(
+                <>
+                    <Input/>
+                </>
+            );
+        }
+
+        const container = document.querySelector(".js-container")
+        ReactDOM.createRoot(container).render(<App/>)
+     </script>
+</body>
+</html>

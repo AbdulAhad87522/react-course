@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+    <style>
+      body{
+        /* margin-top: -8px; */
+        margin-bottom: -8px;
+      }
+
+      button{
+        background-color: green;
+        color: white;
+        padding: 12px 20px;
+        margin-left: 12px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      .inputchat{
+        padding: 15px 5px;
+        border-radius: 12px;
+        font-size: 15px;
+      }
+      .chat-input-container{
+        display: flex;
+        margin-bottom: 60px ;
+      }
+
+      .app-container{
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-message-user{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .chat-message-robot{
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .chat-message{
+        background-color: rgb(217, 221, 225);
+        padding: 15px 20px;
+        border-radius: 6px;
+        margin-left: 10px;
+        margin-right: 10px;
+        max-width: 300px;
+      }
+
+      .chat-message-profile{
+        width: 45px;
+      }
+
+      .chat-message-container{
+        flex-grow: 1;
+        margin-top: 20px;
+        overflow: scroll;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <div class="js-c"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/Chatbot.js" ></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <!-- React and ReactDOM -->
+    <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+    <script type="text/babel">
+      function ChatInput({ chatMessages , setChatMessage})
+      {
+        const [inputText, setInputText] = React.useState('');
+
+        function SaveInputText(event){
+          setInputText(event.target.value);
+        }
+
+       function SaveInput() {
+        if (!inputText.trim()) return;
+
+        const userMessage = {
+          message: inputText,
+          sender: 'user',
+          key: crypto.randomUUID()
+        };
+
+        const loadingMessage = {
+          message: 'Loading...',
+          sender: 'robot',
+          key: 'loading'
+        };
+
+        const newChatMessages = [
+          ...chatMessages,
+          userMessage,
+          loadingMessage
+        ];
+
+        setChatMessage(newChatMessages);
+        setInputText('');
+
+        setTimeout(() => {
+          const response = Chatbot.getResponse(inputText);
+
+          const updatedMessages = newChatMessages.map(chat =>
+            chat.key === 'loading'
+              ? { ...chat, message: response, key: crypto.randomUUID() }
+              : chat
+          );
+
+          setChatMessage(updatedMessages);
+        }, 800); // ⏳ delay for realism
+      }
+
+
+        function buttonclicked(event){
+          if(event.key == 'Enter'){
+          SaveInput();
+        }
+        }
+        return(
+          <div className = "chat-input-container">
+            <input className = "inputchat" size = "70" placeholder = "Typr your query" onKeyDown = {buttonclicked}  onChange = {SaveInputText} value = {inputText}/>
+            <button onClick = {SaveInput}>Send</button>
+            </div>
+        );
+      }
+
+      function ChatMesaage({message , sender })
+      { 
+        return (
+          <div className = {sender === 'user' ? 'chat-message-user' : 'chat-message-robot'}>
+            {sender === 'robot' && <img src="robot.jpg  " width = "30"/>  }
+            <div className= "chat-message">{message}</div>
+            {sender === 'user' && <img src="ahad.png  " width = "30"/>  }
+          </div>
+
+        );
+      }
+
+      function ChatMesaages({ chatMessages}){
+       const chatMessagesRef = React.useRef(null);
+       React.useEffect(() => {
+        const containerElem = chatMessagesRef.current
+        if(containerElem){
+          containerElem.scrollTop = containerElem.scrollHeight; 
+        }
+       },[chatMessages])
+
+        return(
+          <div className = "chat-message-container" ref = {chatMessagesRef}>
+            {chatMessages.map((chat) => {
+                return (
+                  <ChatMesaage
+                    message = {chat.message}
+                    sender = {chat.sender}
+                    key = {chat.key}
+                  />
+                );
+              })
+            }
+          </div>
+          );
+      }
+
+      function App(){
+         const array = React.useState([{
+         message: 'Hello Chatbot',
+          sender: 'user',
+          key: 'id1'
+        },{
+          message: 'I am chatbot',
+          sender: 'robot',
+          key: 'id2'
+        },{
+          message: 'Giveme today date',
+          sender: 'user',
+          key: 'id3'
+        },{
+          message: 'TOday is 2-2-26',
+          sender: 'robot',
+          key: 'id4'
+        }]);
+        const chatMessages = array[0];
+        const setChatMessage = array[1];
+        return (
+           <div className = "app-container">
+            
+            <ChatMesaages
+              chatMessages = {chatMessages}
+            />
+            <ChatInput
+              chatMessages = {chatMessages}
+              setChatMessage = {setChatMessage}
+            />
+          </div>
+        );
+      }
+
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App/> );
+      
+    </script>
+  </body>
+</html> 

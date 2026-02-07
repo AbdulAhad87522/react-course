@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Practice</title>
+</head>
+<body>
+     <div class="js-container"></div>
+    <div class="js-c"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/Chatbot.js" ></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+        function Input(){
+            const [value, setValue] = React.useState('')
+            function ResetValue(event){
+                setValue(event.target.value)
+            }
+
+            function ResetFunction(){
+                setValue('')
+            }
+
+            function ExampleClicked(){
+                setValue('Alice')
+            }
+
+            function Sendmessage(event){
+                if(event.key == 'Escape')
+            {
+                ResetFunction();
+            }
+            }
+
+            return(
+                <>
+                    <input onChange = {ResetValue} placeholder = "Enter name:" value = {value} onKeyDown = {Sendmessage} ></input>  
+                    <button onClick = {ResetFunction}>Reset</button>
+                    <button onClick = {ExampleClicked}>Example</button>
+                    <p>Hello {value}</p>
+                    
+                </>
+            );
+            
+        }
+
+        function App(){
+            return(
+            <>
+                <Input/>
+            </>
+        )};
+
+        const container = document.querySelector('.js-container')
+        ReactDOM.createRoot(container).render(<App/>)
+    </script>
+</body>
+</html>

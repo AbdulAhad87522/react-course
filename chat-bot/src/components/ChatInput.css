@@ -1,0 +1,19 @@
+ button{
+        background-color: green;
+        color: white;
+        padding: 12px 20px;
+        margin-left: 12px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      .inputchat{
+        padding: 15px 5px;
+        border-radius: 12px;
+        font-size: 15px;
+      }
+      .chat-input-container{
+        display: flex;
+        margin-bottom: 60px ;
+      }
